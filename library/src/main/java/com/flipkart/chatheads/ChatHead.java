@@ -262,7 +262,7 @@ public class ChatHead<T extends Serializable> extends ImageView implements Sprin
                 manager.getCloseButton().pointTo(rawX, rawY);
                 if (manager.getActiveArrangement().canDrag(this)) {
                     double distanceCloseButtonFromHead = manager.getDistanceCloseButtonFromHead(rawX, rawY);
-                    if (distanceCloseButtonFromHead < CLOSE_ATTRACTION_THRESHOLD && showCloseButton) {
+                    if (distanceCloseButtonFromHead < CLOSE_ATTRACTION_THRESHOLD && showCloseButton && !manager.getConfig().isCloseButtonHidden()) {
                         setState(ChatHead.State.CAPTURED);
                         activeHorizontalSpring.setSpringConfig(SpringConfigsHolder.NOT_DRAGGING);
                         activeVerticalSpring.setSpringConfig(SpringConfigsHolder.NOT_DRAGGING);

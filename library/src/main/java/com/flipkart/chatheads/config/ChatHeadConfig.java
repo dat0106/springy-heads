@@ -19,6 +19,7 @@ public class ChatHeadConfig {
     private int circularRingHeight;
     private int circularFanOutRadius;
     private boolean closeButtonHidden;
+    private boolean freeChatHead =  false;
 
     public boolean isCloseButtonHidden() {
         return closeButtonHidden;
@@ -127,5 +128,12 @@ public class ChatHeadConfig {
 
     public int getCircularFanOutRadius(int maxWidth, int maxHeight) {
         return circularFanOutRadius;
+    }
+
+    public boolean getFreeChatHead() {
+        return this.freeChatHead;
+    }
+    public void setFreeChatHead(boolean freeChatHead) {
+        this.freeChatHead = freeChatHead;
     }
 }

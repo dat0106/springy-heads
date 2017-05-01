@@ -9,8 +9,8 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringChain;
 import com.facebook.rebound.SpringListener;
 import com.flipkart.chatheads.ChatHead;
-import com.flipkart.chatheads.config.ChatHeadConfig;
 import com.flipkart.chatheads.ChatHeadManager;
+import com.flipkart.chatheads.config.ChatHeadConfig;
 import com.flipkart.chatheads.utils.ChatHeadUtils;
 import com.flipkart.chatheads.utils.SpringConfigsHolder;
 
@@ -290,7 +290,7 @@ public class MinimizedArrangement<T extends Serializable> extends ChatHeadArrang
     private void settleToClosest(ChatHead activeChatHead, int xVelocity, int yVelocity) {
         Spring activeHorizontalSpring = activeChatHead.getHorizontalSpring();
         Spring activeVerticalSpring = activeChatHead.getVerticalSpring();
-        if (activeChatHead.getState() == ChatHead.State.FREE) {
+        if (activeChatHead.getState() == ChatHead.State.FREE && !manager.getConfig().getFreeChatHead()) {
             if (Math.abs(xVelocity) < ChatHeadUtils.dpToPx(manager.getDisplayMetrics(), 50)) {
                 if (activeHorizontalSpring.getCurrentValue() < (maxWidth - activeHorizontalSpring.getCurrentValue())) {
                     xVelocity = -1;
@@ -459,7 +459,7 @@ public class MinimizedArrangement<T extends Serializable> extends ChatHeadArrang
             int[] coords = manager.getChatHeadCoordsForCloseButton(activeChatHead);
             double distanceCloseButtonFromHead = manager.getDistanceCloseButtonFromHead((float) activeHorizontalSpring.getCurrentValue() + manager.getConfig().getHeadWidth() / 2, (float) activeVerticalSpring.getCurrentValue() + manager.getConfig().getHeadHeight() / 2);
 
-            if (distanceCloseButtonFromHead < activeChatHead.CLOSE_ATTRACTION_THRESHOLD && activeHorizontalSpring.getSpringConfig() == SpringConfigsHolder.DRAGGING && activeVerticalSpring.getSpringConfig() == SpringConfigsHolder.DRAGGING) {
+            if (distanceCloseButtonFromHead < activeChatHead.CLOSE_ATTRACTION_THRESHOLD && activeHorizontalSpring.getSpringConfig() == SpringConfigsHolder.DRAGGING && activeVerticalSpring.getSpringConfig() == SpringConfigsHolder.DRAGGING && !manager.getConfig().isCloseButtonHidden()) {
                 activeHorizontalSpring.setSpringConfig(SpringConfigsHolder.NOT_DRAGGING);
                 activeVerticalSpring.setSpringConfig(SpringConfigsHolder.NOT_DRAGGING);
                 activeChatHead.setState(ChatHead.State.CAPTURED);

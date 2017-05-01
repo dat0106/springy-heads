@@ -16,13 +16,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flipkart.chatheads.ChatHead;
-import com.flipkart.chatheads.ChatHeadContainer;
 import com.flipkart.chatheads.ChatHeadListener;
 import com.flipkart.chatheads.ChatHeadManager;
 import com.flipkart.chatheads.ChatHeadViewAdapter;
 import com.flipkart.chatheads.arrangement.ChatHeadArrangement;
 import com.flipkart.chatheads.arrangement.MaximizedArrangement;
 import com.flipkart.chatheads.arrangement.MinimizedArrangement;
+import com.flipkart.chatheads.config.ChatHeadConfig;
+import com.flipkart.chatheads.container.ClickListener;
 import com.flipkart.chatheads.container.DefaultChatHeadManager;
 import com.flipkart.chatheads.container.WindowManagerContainer;
 import com.flipkart.circularImageView.CircularDrawable;
@@ -54,7 +55,30 @@ public class ChatHeadService extends Service {
         super.onCreate();
 
         windowManagerContainer = new WindowManagerContainer(this);
-        chatHeadManager = new DefaultChatHeadManager<String>(this, windowManagerContainer);
+        windowManagerContainer.setOnClickListener(new ClickListener() {
+            @Override
+            public void onClick() {
+
+            }
+
+            @Override
+            public void onLongClick() {
+
+            }
+
+            @Override
+            public void onDoubleClick() {
+
+            }
+        });
+        chatHeadManager = new DefaultChatHeadManager<String>(this, windowManagerContainer){
+            @Override
+            public void setConfig(ChatHeadConfig _config) {
+
+//                new CustomChatHeadConfig(ChatHeadService.this, 56, 56);
+                super.setConfig(new CustomChatHeadConfig(ChatHeadService.this, 56, 56));
+            }
+        };
 
         // The view adapter is invoked when someone clicks a chat head.
         chatHeadManager.setViewAdapter(new ChatHeadViewAdapter<String>() {
@@ -141,7 +165,7 @@ public class ChatHeadService extends Service {
                 if (chatHeadManager.getArrangementType() == MaximizedArrangement.class) {
                     Log.d(TAG, "chat head got selected in maximized arrangement");
                 }
-                return false; //returning true will mean that you have handled the behaviour and the default behaviour will be skipped
+                return true; //returning true will mean that you have handled the behaviour and the default behaviour will be skipped
             }
 
             @Override
