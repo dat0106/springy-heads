@@ -82,6 +82,15 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
                     onClickListener.onDoubleClick();
                 }
             }
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(onClickListener!=null){
+                    onClickListener.onTouch();
+                }
+                return super.onTouch(v, event);
+
+            }
         };
         motionCaptureView.setOnTouchListener(listener);
         registerReceiver(getContext());

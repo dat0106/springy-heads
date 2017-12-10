@@ -19,20 +19,20 @@ import android.widget.ImageView;
 
 import com.facebook.rebound.SpringConfigRegistry;
 import com.facebook.rebound.SpringSystem;
-import com.flipkart.chatheads.R;
 import com.flipkart.chatheads.ChatHead;
-import com.flipkart.chatheads.arrangement.ChatHeadArrangement;
-import com.flipkart.chatheads.custom.ChatHeadCloseButton;
-import com.flipkart.chatheads.config.ChatHeadConfig;
-import com.flipkart.chatheads.config.ChatHeadDefaultConfig;
+import com.flipkart.chatheads.ChatHeadContainer;
 import com.flipkart.chatheads.ChatHeadListener;
 import com.flipkart.chatheads.ChatHeadManager;
 import com.flipkart.chatheads.ChatHeadViewAdapter;
+import com.flipkart.chatheads.R;
+import com.flipkart.chatheads.arrangement.ChatHeadArrangement;
 import com.flipkart.chatheads.arrangement.MaximizedArrangement;
 import com.flipkart.chatheads.arrangement.MinimizedArrangement;
-import com.flipkart.chatheads.utils.SpringConfigsHolder;
+import com.flipkart.chatheads.config.ChatHeadConfig;
+import com.flipkart.chatheads.config.ChatHeadDefaultConfig;
+import com.flipkart.chatheads.custom.ChatHeadCloseButton;
 import com.flipkart.chatheads.custom.UpArrowLayout;
-import com.flipkart.chatheads.ChatHeadContainer;
+import com.flipkart.chatheads.utils.SpringConfigsHolder;
 
 import java.io.Serializable;
 import java.util.ArrayList;

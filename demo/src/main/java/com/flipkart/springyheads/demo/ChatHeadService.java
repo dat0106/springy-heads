@@ -57,6 +57,10 @@ public class ChatHeadService extends Service {
         windowManagerContainer = new WindowManagerContainer(this);
         windowManagerContainer.setOnClickListener(new ClickListener() {
             @Override
+            public void onTouch() {
+            }
+
+            @Override
             public void onClick() {
 
             }

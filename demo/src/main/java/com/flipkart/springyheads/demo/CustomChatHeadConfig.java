@@ -14,8 +14,8 @@ public class CustomChatHeadConfig extends ChatHeadDefaultConfig {
         super(context);
         setHeadHorizontalSpacing(ChatHeadUtils.dpToPx(context, -2));
         setHeadVerticalSpacing(ChatHeadUtils.dpToPx(context, 2));
-        setHeadWidth(ChatHeadUtils.dpToPx(context, 10));
-        setHeadHeight(ChatHeadUtils.dpToPx(context, 10));
+        setHeadWidth(ChatHeadUtils.dpToPx(context, 50));
+        setHeadHeight(ChatHeadUtils.dpToPx(context, 50));
         setInitialPosition(new Point(xPosition, yPosition));
         setCloseButtonHidden(true);
         setFreeChatHead(true);

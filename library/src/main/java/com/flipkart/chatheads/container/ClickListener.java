@@ -5,6 +5,7 @@ package com.flipkart.chatheads.container;
  */
 
 public abstract class ClickListener {
+    public abstract void onTouch();
     public abstract void onClick();
     public abstract void onLongClick();
     public abstract void onDoubleClick();
