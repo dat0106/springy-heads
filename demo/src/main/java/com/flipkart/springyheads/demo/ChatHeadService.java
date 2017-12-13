@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -57,7 +58,7 @@ public class ChatHeadService extends Service {
         windowManagerContainer = new WindowManagerContainer(this);
         windowManagerContainer.setOnClickListener(new ClickListener() {
             @Override
-            public void onTouch() {
+            public void onTouch(MotionEvent event) {
             }
 
             @Override
