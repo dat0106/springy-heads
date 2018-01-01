@@ -44,6 +44,7 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
     private ChatHeadArrangement currentArrangement;
     private boolean motionCaptureViewAdded;
     private ClickListener onClickListener;
+    private BroadcastReceiver receiver;
 
     public WindowManagerContainer(Context context) {
         super(context);
@@ -97,7 +98,7 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
     }
 
     public void registerReceiver(Context context) {
-        context.registerReceiver(new BroadcastReceiver() {
+        receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 HostFrameLayout frameLayout = getFrameLayout();
@@ -105,7 +106,8 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
                     frameLayout.minimize();
                 }
             }
-        }, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        };
+        context.registerReceiver(receiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
     }
 
     public WindowManager getWindowManager() {
@@ -275,6 +277,9 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
     public void destroy() {
         windowManager.removeViewImmediate(motionCaptureView);
         windowManager.removeViewImmediate(getFrameLayout());
+        if(receiver!=null) {
+            getContext().unregisterReceiver(receiver);
+        }
     }
 
 
