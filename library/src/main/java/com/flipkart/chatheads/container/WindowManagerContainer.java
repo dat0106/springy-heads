@@ -269,6 +269,7 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
             motionCaptureViewAdded = false;
         }
     }
+    
 
     private void removeContainer(View motionCaptureView) {
         windowManager.removeView(motionCaptureView);
