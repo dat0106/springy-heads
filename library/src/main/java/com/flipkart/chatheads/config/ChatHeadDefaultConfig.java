@@ -2,6 +2,7 @@ package com.flipkart.chatheads.config;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.flipkart.chatheads.utils.ChatHeadUtils;
 
@@ -10,12 +11,14 @@ import com.flipkart.chatheads.utils.ChatHeadUtils;
  */
 public class ChatHeadDefaultConfig extends ChatHeadConfig {
     public ChatHeadDefaultConfig(Context context) {
-        int diameter = 56;
+        int diameter = 100;
+        Log.v(getClass().getSimpleName(), "ChatHeadDefaultConfig setConfig");
+
         setHeadHeight(ChatHeadUtils.dpToPx(context,diameter));
         setHeadWidth(ChatHeadUtils.dpToPx(context, diameter));
         setHeadHorizontalSpacing(ChatHeadUtils.dpToPx(context, 10));
         setHeadVerticalSpacing(ChatHeadUtils.dpToPx(context, 5));
-        setInitialPosition(new Point(0,ChatHeadUtils.dpToPx(context,0)));
+        setInitialPosition(new Point(10,ChatHeadUtils.dpToPx(context,10)));
         setCloseButtonHidden(false);
         setCloseButtonWidth(ChatHeadUtils.dpToPx(context, 62));
         setCloseButtonHeight(ChatHeadUtils.dpToPx(context, 62));

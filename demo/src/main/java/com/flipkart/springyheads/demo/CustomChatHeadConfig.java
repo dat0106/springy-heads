@@ -2,6 +2,8 @@ package com.flipkart.springyheads.demo;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.flipkart.chatheads.config.ChatHeadDefaultConfig;
 import com.flipkart.chatheads.utils.ChatHeadUtils;
@@ -12,11 +14,13 @@ import com.flipkart.chatheads.utils.ChatHeadUtils;
 public class CustomChatHeadConfig extends ChatHeadDefaultConfig {
     public CustomChatHeadConfig(Context context, int xPosition, int yPosition) {
         super(context);
+        Log.v(getClass().getSimpleName(), "CustomChatHeadConfig setConfig");
+
         setHeadHorizontalSpacing(ChatHeadUtils.dpToPx(context, -2));
-        setHeadVerticalSpacing(ChatHeadUtils.dpToPx(context, 2));
+        setHeadVerticalSpacing(ChatHeadUtils.dpToPx(context, -2));
         setHeadWidth(ChatHeadUtils.dpToPx(context, 50));
         setHeadHeight(ChatHeadUtils.dpToPx(context, 50));
-        setInitialPosition(new Point(xPosition, yPosition));
+        setInitialPosition(new Point(PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getInt("point_x", 50), PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getInt("point_y", 50)));
         setCloseButtonHidden(true);
         setFreeChatHead(true);
         setCloseButtonHeight(ChatHeadUtils.dpToPx(context, 50));

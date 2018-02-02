@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -81,9 +82,15 @@ public class FloatingActivity extends Activity implements View.OnClickListener {
             } else if (v == removeAllButtons) {
                 chatHeadService.removeAllChatHeads();
             } else if (v == toggleButton) {
-                chatHeadService.toggleArrangement();
+                Intent intent = new Intent(this, ChatHeadService.class);
+                startService(intent);
+                bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+//                chatHeadService.toggleArrangement();
             } else if (v == updateBadgeCount) {
-                chatHeadService.updateBadgeCount();
+                Log.v(getClass().getSimpleName(), "onClick");
+                unbindService(mConnection);
+                stopService(new Intent(this, ChatHeadService.class));
+//                chatHeadService.updateBadgeCount();
             }
         } else {
             Toast.makeText(this, "Service not bound", Toast.LENGTH_SHORT).show();

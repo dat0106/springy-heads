@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -161,6 +162,9 @@ public class ChatHeadService extends Service {
             public void onChatHeadAnimateEnd(ChatHead chatHead) {
                 //called when the chat head has settled after moving
                 Log.d(TAG, "onChatHeadAnimateEnd() called with: chatHead = [" + chatHead + "]");
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("point_x", ((MinimizedArrangement)chatHeadManager.getArrangement(MinimizedArrangement.class)).getIdleStatePosition().x).apply();
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("point_y", ((MinimizedArrangement)chatHeadManager.getArrangement(MinimizedArrangement.class)).getIdleStatePosition().y).apply();
+
             }
         });
 
@@ -184,10 +188,7 @@ public class ChatHeadService extends Service {
             }
         });
         addChatHead();
-        addChatHead();
-        addChatHead();
-        addChatHead();
-        chatHeadManager.setArrangement(MinimizedArrangement.class, null);
+        chatHeadManager.setArrangement(MinimizedArrangement.class, null, false);
         moveToForeground();
 
     }
@@ -240,9 +241,9 @@ public class ChatHeadService extends Service {
 
     public void toggleArrangement() {
         if (chatHeadManager.getActiveArrangement() instanceof MinimizedArrangement) {
-            chatHeadManager.setArrangement(MaximizedArrangement.class, null);
+            chatHeadManager.setArrangement(MaximizedArrangement.class, null, false);
         } else {
-            chatHeadManager.setArrangement(MinimizedArrangement.class, null);
+            chatHeadManager.setArrangement(MinimizedArrangement.class, null, false);
         }
     }
 
@@ -254,10 +255,13 @@ public class ChatHeadService extends Service {
     public void onDestroy() {
         super.onDestroy();
         windowManagerContainer.destroy();
+        windowManagerContainer = null;
+        stopForeground(true);
+        chatHeadManager = null;
     }
 
     public void minimize() {
-        chatHeadManager.setArrangement(MinimizedArrangement.class, null);
+        chatHeadManager.setArrangement(MinimizedArrangement.class, null, false);
     }
 
     /**

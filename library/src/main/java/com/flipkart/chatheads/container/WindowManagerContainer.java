@@ -340,8 +340,14 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
             }
 
             @Override
-            public boolean onSingleTapUp(MotionEvent e) {
+            public boolean onSingleTapConfirmed(MotionEvent e) {
                 onClick();
+                return super.onSingleTapConfirmed(e);
+            }
+
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
                 return super.onSingleTapUp(e);
             }
 
