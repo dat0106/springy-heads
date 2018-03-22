@@ -175,7 +175,7 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY ;
         } else {
             if(checkDisplayAboveLockScreen){
-                LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+                LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
             } else {
                 LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE;
             }
