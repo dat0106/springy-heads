@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -24,7 +25,6 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-import static android.view.WindowManager.LayoutParams.TYPE_PHONE;
 
 /**
  * Created by kiran.kumar on 08/11/16.
@@ -45,6 +45,7 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
     private boolean motionCaptureViewAdded;
     private ClickListener onClickListener;
     private BroadcastReceiver receiver;
+    private boolean checkDisplayAboveLockScreen = false;
 
     public WindowManagerContainer(Context context) {
         super(context);
@@ -168,8 +169,19 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
         } else {
             focusableFlag = FLAG_NOT_TOUCHABLE | FLAG_NOT_FOCUSABLE;
         }
+
+        int LAYOUT_FLAG;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY ;
+        } else {
+            if(checkDisplayAboveLockScreen){
+                LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+            } else {
+                LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE;
+            }
+        }
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(MATCH_PARENT, MATCH_PARENT,
-                TYPE_PHONE,
+                LAYOUT_FLAG,
                 focusableFlag,
                 PixelFormat.TRANSLUCENT);
         layoutParams.x = 0;
@@ -178,6 +190,9 @@ public class WindowManagerContainer extends FrameChatHeadContainer {
         return layoutParams;
     }
 
+    public void setDisplayAboveLockScreen(boolean  checkDisplayAboveLockScreen){
+        this.checkDisplayAboveLockScreen =  checkDisplayAboveLockScreen;
+    }
     @Override
     public void addContainer(View container, boolean focusable) {
         WindowManager.LayoutParams containerLayoutParams = createContainerLayoutParams(focusable);
